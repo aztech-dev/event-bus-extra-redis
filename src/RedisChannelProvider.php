@@ -2,9 +2,9 @@
 
 namespace Aztech\Events\Bus\Plugins\Redis;
 
-use Predis\Client;
 use Aztech\Events\Bus\Channel\ChannelProvider;
 use Aztech\Events\Bus\Channel\ReadWriteChannel;
+use Predis\Client;
 
 class RedisChannelProvider implements ChannelProvider
 {
