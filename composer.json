@@ -1,6 +1,6 @@
 {
     "name": "aztech/event-bus-extra-redis",
-    "description": ""aztech/event-bus Redis channel provider",,
+    "description": "aztech/event-bus Redis channel provider",
     "keywords": [
         "event",
         "events",
