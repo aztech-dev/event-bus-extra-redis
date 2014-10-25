@@ -9,7 +9,7 @@ use Predis\Client;
 class RedisChannelProvider implements ChannelProvider
 {
 
-    public function createChannel(array $options)
+    public function createChannel(array $options = array())
     {
         $redisClient = new Client($options);
         $redisClient->connect();
