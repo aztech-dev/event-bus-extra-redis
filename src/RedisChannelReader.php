@@ -53,7 +53,7 @@ class RedisChannelReader implements AcknowledgeableChannelReader
             return false;
         }
 
-        return $this->client->lpop($this->processingKey, 0, $ack->getCorrelationData()) === 1;
+        return $this->client->lrem($this->processingKey, 0, $ack->getCorrelationData()) === 1;
     }
 
     public function dispose()
