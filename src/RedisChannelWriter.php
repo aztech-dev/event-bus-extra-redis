@@ -34,4 +34,9 @@ class RedisChannelWriter implements ChannelWriter
     {
         $this->client->rpush($this->key, $serializedRepresentation);
     }
+
+    public function dispose()
+    {
+
+    }
 }

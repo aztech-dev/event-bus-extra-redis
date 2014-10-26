@@ -28,12 +28,19 @@ class RedisChannelReader implements ChannelReader
     public function read()
     {
         if (! empty($this->processingKey)) {
-            return $this->client->brpoplpush($this->key, $this->processingKey, 0);
+            return $this->client->rpoplpush($this->key, $this->processingKey, 0);
         }
         else {
-            return $this->client->brpop(array(
+            return $this->client->rpop(array(
                 $this->key
             ), 0);
+        }
+    }
+
+    public function dispose()
+    {
+        while ($this->client->rpoplpush($this->processingKey, $this->key)) {
+            continue;
         }
     }
 }
