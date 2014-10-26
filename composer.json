@@ -17,7 +17,7 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "aztech/event-bus": "~1",
+        "aztech/event-bus": "~1.1",
         "aztech/php-utils": "~0",
         "predis/predis": "~0.8",
         "psr/log": "~1.0"
