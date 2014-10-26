@@ -2,10 +2,11 @@
 
 namespace Aztech\Events\Bus\Plugins\Redis;
 
-use Aztech\Events\Bus\Channel\ChannelReader;
 use Predis\Client;
+use Aztech\Events\Bus\Channel\AcknowledgeableChannelReader;
+use Aztech\Events\Bus\Channel\Message;
 
-class RedisChannelReader implements ChannelReader
+class RedisChannelReader implements AcknowledgeableChannelReader
 {
 
     private $client;
@@ -27,14 +28,32 @@ class RedisChannelReader implements ChannelReader
 
     public function read()
     {
+        return $this->client->rpop(array(
+            $this->key
+        ), 0);
+    }
+
+    public function readAck()
+    {
         if (! empty($this->processingKey)) {
-            return $this->client->rpoplpush($this->key, $this->processingKey);
+            $data = $this->client->rpoplpush($this->key, $this->processingKey);
+            $message = new Message($data, $data);
         }
         else {
-            return $this->client->rpop(array(
-                $this->key
-            ), 0);
+            $data = $this->read();
+            $message = new Message("", $data);
         }
+
+        return $message;
+    }
+
+    public function acknowledge(Message $ack)
+    {
+        if ($ack->getCorrelationData() == "") {
+            return false;
+        }
+
+        return $this->client->lpop($this->processingKey, 0, $ack->getCorrelationData()) === 1;
     }
 
     public function dispose()
