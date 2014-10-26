@@ -28,7 +28,7 @@ class RedisChannelReader implements ChannelReader
     public function read()
     {
         if (! empty($this->processingKey)) {
-            return $this->client->rpoplpush($this->key, $this->processingKey, 0);
+            return $this->client->rpoplpush($this->key, $this->processingKey);
         }
         else {
             return $this->client->rpop(array(
