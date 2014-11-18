@@ -13,6 +13,9 @@ class RedisChannelWriter implements ChannelWriter
 
     private $key = null;
 
+    /**
+     * @param string $eventKey
+     */
     public function __construct(Client $redisClient, $eventKey)
     {
         if (empty($eventKey)) {

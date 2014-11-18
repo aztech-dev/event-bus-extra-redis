@@ -19,6 +19,10 @@ class RedisChannelReader implements AcknowledgeableChannelReader
 
     private $processingKey = null;
 
+    /**
+     * @param string $eventKey
+     * @param string $processingKey
+     */
     public function __construct(Client $redisClient, $eventKey, $processingKey = null)
     {
         if (empty($eventKey)) {
