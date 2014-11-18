@@ -7,6 +7,9 @@ php:
   - hhvm
   - hhvm-nightly
 
+services:
+  - redis-server
+
 before_script:
   - composer selfupdate
   - PHP_CURRENT='5.6'
