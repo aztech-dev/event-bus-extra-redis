@@ -15,8 +15,8 @@ before_script:
   - PHP_CURRENT='5.6'
 
 script:
-  - make test
-  - if [ $(phpenv version-name) = $PHP_CURRENT ]; then make test-upload; fi
+  - make phpunit
+  - if [ $(phpenv version-name) = $PHP_CURRENT ]; then make test-upload phpcs bugfree phpmd ; fi
   - make clean
 
 matrix:
