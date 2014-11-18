@@ -9,9 +9,16 @@ use Predis\Client;
 class RedisChannelProvider implements ChannelProvider
 {
 
+    private $client;
+
+    public function setClient(Client $client = null)
+    {
+        $this->client = $client;
+    }
+
     public function createChannel(array $options = array())
     {
-        $redisClient = new Client($options);
+        $redisClient = $this->client ?: new Client($options);
         $redisClient->connect();
 
         if (isset($options['password']) && ! empty($options['password'])) {

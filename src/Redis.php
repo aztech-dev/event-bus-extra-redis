@@ -9,7 +9,9 @@ class Redis
 {
     public static function loadPlugin($name = 'redis')
     {
-        Events::addPlugin($name, new GenericPluginFactory(function () {
+        $events = new Events();
+
+        $events->addPlugin($name, new GenericPluginFactory(function () {
             return new RedisChannelProvider();
         }, new RedisOptionsDescriptor()));
     }

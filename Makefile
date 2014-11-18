@@ -8,7 +8,7 @@ pretest:
 	composer install --dev
 	
 phpunit: pretest
-	@vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+	@vendor/bin/phpunit --coverage-text --coverage-clover=tests/output/coverage.clover
 
 ifndef STRICT
 STRICT = 0
@@ -33,10 +33,10 @@ ocular:
 
 ifdef OCULAR_TOKEN
 scrutinizer: ocular
-	@php ocular.phar code-coverage:upload --format=php-clover coverage.clover --access-token=$(OCULAR_TOKEN);
+	@php ocular.phar code-coverage:upload --format=php-clover tests/output/coverage.clover --access-token=$(OCULAR_TOKEN);
 else
 scrutinizer: ocular
-	@php ocular.phar code-coverage:upload --format=php-clover coverage.clover;
+	@php ocular.phar code-coverage:upload --format=php-clover tests/output/coverage.clover;
 endif
 
 clean: clean-env clean-deps

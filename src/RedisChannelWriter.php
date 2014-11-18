@@ -13,30 +13,31 @@ class RedisChannelWriter implements ChannelWriter
 
     private $key = null;
 
-    private $processingKey = null;
-
-    public function __construct(Client $redisClient, $eventKey, $processingKey)
+    public function __construct(Client $redisClient, $eventKey)
     {
         if (empty($eventKey)) {
             throw new \InvalidArgumentException('Event key must be provided.');
         }
 
-        if (empty($processingKey)) {
-            throw new \InvalidArgumentException('Processing key must be provided.');
-        }
-
         $this->client = $redisClient;
         $this->key = $eventKey;
-        $this->processingKey = $processingKey;
     }
 
-    public function write(Event $event, $serializedRepresentation)
+    /**
+     * (non-PHPdoc)
+     * @see \Aztech\Events\Bus\Channel\ChannelWriter::write()
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    public function write(Event $event, $serializedEvent)
     {
-        $this->client->rpush($this->key, $serializedRepresentation);
+        $this->client->rpush($this->key, $serializedEvent);
     }
 
+    /**
+     * (non-PHPdoc)
+     * @see \Aztech\Events\Bus\Channel\ChannelWriter::dispose()
+     * @codeCoverageIgnore function is null-op
+     */
     public function dispose()
-    {
-
-    }
+    { }
 }
