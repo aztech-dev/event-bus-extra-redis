@@ -29,7 +29,7 @@ class RedisChannelProvider implements ChannelProvider
         $processingKey = $options['event-key'] . ':processing';
 
         $reader = new RedisChannelReader($redisClient, $eventKey, $processingKey);
-        $writer = new RedisChannelWriter($redisClient, $eventKey, $processingKey);
+        $writer = new RedisChannelWriter($redisClient, $eventKey);
 
         return new ReadWriteChannel($reader, $writer);
     }
